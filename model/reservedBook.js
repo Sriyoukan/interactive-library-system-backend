@@ -3,6 +3,7 @@ var Schema = mongoose.Schema
 
 var reservedBookSchema = new Schema({
     title :{type:String},
+    libraryId:String,
     borrower: String,
     onHand:Boolean,
     returnDate:Date,

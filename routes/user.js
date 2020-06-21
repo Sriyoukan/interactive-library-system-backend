@@ -21,38 +21,49 @@ router.get('/user',(req,res)=>{
         })
 })
 router.post('/user',(req,res,next)=>{
+    
     var user = new User()
     user.name=req.body.name,
     user.age=req.body.age,
-    user.Id=req.body.Id,
-    user.isAdmin = req.body.isAdmin
+    user.userType = req.body.userType,
+    user.libraryId = req.body.libraryId,
     
-
-    user.setPassword(req.body.password)
-    user.save((err)=>{
-    if (err){
-      return next(err);
-    }else {
-      res.status(200).json(user)
+    user.setPassword(req.body.password),
+    User.count((err,data)=>{
+        if(err){
+            return err
+        }else{
+            user.Id = req.body.userType.concat(data.toString())
+            user.save((err)=>{
+                if (err){
+                  return next(err);
+                }else {
+                  res.status(200).json(user)
+                    }
+                })
         }
     })
+    
 
 })
 
 router.post('/user/login',(req,res,next)=>{
   
-    User.findOne({Id : req.body.Id},async (err,data)=>{
+    User.findOne({userType:req.body.userType,libraryId:req.body.libraryId,Id : req.body.Id},async (err,data)=>{
       
       if (err){
         return "err";
       }else{
-        user = new User(data)
-        result =  user.validatePassword(req.body.password,user)
-        if(result){
-          return res.json(user)
-        }else{
-          return result
-        }
+          if(data == null){
+              return null
+          }else{
+            user = new User(data)
+            result =  user.validatePassword(req.body.password,user)
+                if(result){
+                    return res.json(user)
+                }else{
+                    return null
+            }           }
       }
     })
  })

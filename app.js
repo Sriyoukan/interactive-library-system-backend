@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cors = require('cors')
 var bookRoute = require('./routes/book');
 var reservedBookRoute = require('./routes/reservedBook')
+var libraryRoute = require('./routes/library')
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var userRoute = require('./routes/user')
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bookRoute)
 app.use(reservedBookRoute)
 app.use(userRoute)
+app.use(libraryRoute)
 app.use(function(req, res, next) {
   next(createError(404));
 });

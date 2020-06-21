@@ -4,6 +4,8 @@ var Schema = mongoose.Schema
 var bookSchema = new Schema({
     title :{type:String,unique:true},
     author: String,
+    libraryId:String,
+    bookId:String,
     numberOfCopiesAvailable:Number,
     totalCopies:Number
 })

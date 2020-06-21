@@ -18,8 +18,8 @@ router.get('/book',(req,res,next)=>{
     })
 })
 
-router.get('/allBook',(req,res,next)=>{
-    Book.find((err,data)=>{
+router.post('/allBook',(req,res,next)=>{
+    Book.find({libraryId:req.body.id},(err,data)=>{
         if(err){
             return err
         }else{
@@ -43,6 +43,8 @@ router.post('/book', function(req, res, next) {
        
     book.title = req.body.title,
     book.author = req.body.author,
+    book.libraryId = req.body.libraryId,
+    book.bookId = req.body.bookId,
     book.numberOfCopiesAvailable = req.body.numberOfCopiesAvailable
     book.totalCopies = req.body.totalCopies
 

@@ -33,7 +33,7 @@ router.post('/reservedUpdate',(req,res,next)=>{
 
 router.post('/reservedBook',(req,res,next)=>{
     
-    ReservedBook.find({borrower:req.body.borrower},(err,data)=>{
+    ReservedBook.find({borrower:req.body.borrower,libraryId:req.body.libraryId},(err,data)=>{
         if(err){
             return err
         }else{
@@ -41,8 +41,8 @@ router.post('/reservedBook',(req,res,next)=>{
         }
     })
 })
-router.get('/allReserved',(req,res,next)=>{
-    ReservedBook.find((err,data)=>{
+router.post('/allReserved',(req,res,next)=>{
+    ReservedBook.find({libraryId:req.body.id},(err,data)=>{
         if(err){
             return err
         }else{
@@ -57,7 +57,7 @@ router.post('/userReserveBook', function(req, res, next) {
     var D = new Date()
     
     //this.number = this.number - 1
-    ReservedBook.find({title:req.body.title,borrower:req.body.borrower},(err,data)=>{
+    ReservedBook.find({title:req.body.title,borrower:req.body.borrower,libraryId:req.body.id},(err,data)=>{
         if(err){
             return err
         }else{
@@ -65,6 +65,7 @@ router.post('/userReserveBook', function(req, res, next) {
                 res.status(200).json(data)
             }else{
                 reservedBook.title = req.body.title,
+                reservedBook.libraryId=req.body.id,
                 reservedBook.borrower = req.body.borrower,
                 reservedBook.onHand = false,
                 reservedBook.returnDate = D.setDate( D.getDate() + 1),
