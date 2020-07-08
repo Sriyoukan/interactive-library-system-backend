@@ -155,5 +155,15 @@ router.post('/searchReserved',(req,res,next)=>{
     })
 })
 
+router.post('/deleteRecieved',(req,res)=>{
+    ReservedBook.deleteMany({libraryId:req.body.id},(err)=>{
+        if(err){
+            return err
+        }else{
+            res.status(200).json("success")
+        }
+    })
+})
+
 
 module.exports = router;

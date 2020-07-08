@@ -38,4 +38,14 @@ router.post('/library',(req,res,next)=>{
     })
 })
 
+router.post('/delete',(req,res)=>{
+    Library.deleteOne({id:req.body.id},(err)=>{
+        if(err){
+            return err
+        }else{
+            res.status(200).json("successfully deleted")
+        }
+    })
+})
+
 module.exports = router;

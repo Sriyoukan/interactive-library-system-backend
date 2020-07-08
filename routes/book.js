@@ -66,5 +66,14 @@ router.post('/search',(req,res,next)=>{
         }
     })
 })
+router.post('/deleteBook',(req,res)=>{
+    Book.deleteMany({libraryId:req.body.id},(err)=>{
+        if(err){
+            return err
+        }else{
+            res.status(200).json("success")
+        }
+    })
+})
 
 module.exports = router;

@@ -95,7 +95,7 @@ router.post('/notification',(req,res,next)=>{
             data.forEach(element => {
                 if(element.returnDate < D && element.onHand == true){
                     
-                        day = (D.getDate()-element.returnDate.getDate())*10
+                        day = ((D.getMonth()-element.returnDate.getMonth())*30+D.getDate()-element.returnDate.getDate())*10
                         ReservedBook.update({title:element.title,borrower:element.borrower},{penalty:day,overDue:true},{new:true},(err,data)=>{
                             if(err){
                                 return err
@@ -126,6 +126,15 @@ router.get('/adminNotification',(req,res,next)=>{
             return err
         }else{
             res.status(200).json(data)
+        }
+    })
+})
+router.post('/deleteUser',(req,res)=>{
+    User.deleteMany({libraryId:req.body.id},(err)=>{
+        if(err){
+            return err
+        }else{
+            res.status(200).json("success")
         }
     })
 })
