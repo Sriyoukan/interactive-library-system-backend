@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt-nodejs')
 var crypto = require('crypto');
 var User = require('../model/user')
 var Book = require('../model/book')

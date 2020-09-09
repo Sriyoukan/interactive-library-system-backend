@@ -7,7 +7,8 @@ var bookSchema = new Schema({
     libraryId:String,
     bookId:String,
     numberOfCopiesAvailable:Number,
-    totalCopies:Number
+    totalCopies:Number,
+    documentName:String
 })
 
 bookSchema.methods.reduceCopies = function(){
